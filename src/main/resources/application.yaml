@@ -12,6 +12,7 @@ spring:
     url: jdbc:mysql://localhost:3306/board
     username: suha
     password: rlcjf1227!
+    driver-class-name: com.mysql.jdbc.Driver
   jpa:
     defer-datasource-initialization: true
     hibernate.ddl-auto: create
@@ -19,6 +20,5 @@ spring:
     properties:
       hibernate.format_sql: true
       hibernate.default_batch_fetch_size: 100
-  h2.console.enabled: true
   sql.init.mode: always
 
