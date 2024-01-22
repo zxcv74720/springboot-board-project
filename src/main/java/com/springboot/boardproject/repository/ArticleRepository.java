@@ -5,6 +5,7 @@ import com.querydsl.core.types.dsl.StringExpression;
 import com.springboot.boardproject.domain.Article;
 import com.springboot.boardproject.domain.ArticleComment;
 import com.springboot.boardproject.domain.QArticle;
+import com.springboot.boardproject.repository.querydsl.ArticleRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +19,7 @@ import java.util.List;
 @RepositoryRestResource
 public interface ArticleRepository extends
         JpaRepository<Article, Long>,
+        ArticleRepositoryCustom,
         QuerydslPredicateExecutor<Article>,
         QuerydslBinderCustomizer<QArticle> {
 
@@ -37,4 +39,6 @@ public interface ArticleRepository extends
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);
         bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
     }
+
+    List<String> findAllDistinctHashtags();
 }
