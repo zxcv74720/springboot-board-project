@@ -3,7 +3,6 @@ package com.springboot.boardproject.repository;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.springboot.boardproject.domain.Article;
-import com.springboot.boardproject.domain.ArticleComment;
 import com.springboot.boardproject.domain.QArticle;
 import com.springboot.boardproject.repository.querydsl.ArticleRepositoryCustom;
 import org.springframework.data.domain.Page;
