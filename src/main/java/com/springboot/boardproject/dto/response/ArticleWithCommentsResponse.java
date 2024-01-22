@@ -42,5 +42,4 @@ public record ArticleWithCommentsResponse(
                         .collect(Collectors.toCollection(LinkedHashSet::new))
         );
     }
-
 }
