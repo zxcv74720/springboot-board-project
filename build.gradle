@@ -37,6 +37,7 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    testImplementation 'org.springframework.security:spring-security-test'
 
     // queryDSL 설정
     // queryDSL 설정
@@ -62,7 +63,7 @@ tasks.withType(JavaCompile) {
 
 // java source set 에 querydsl QClass 위치 추가
 sourceSets {
-    main.java.srcDirs += [ generated ]
+    main.java.srcDirs = ['build/generated/sources/annotationProcessor/java/main','src/main/java']
 }
 
 // gradle clean 시에 QClass 디렉토리 삭제

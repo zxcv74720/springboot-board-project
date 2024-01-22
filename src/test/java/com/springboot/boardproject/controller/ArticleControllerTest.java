@@ -1,11 +1,12 @@
 package com.springboot.boardproject.controller;
 
 import com.springboot.boardproject.config.SecurityConfig;
-import com.springboot.boardproject.domain.type.SearchType;
+import com.springboot.boardproject.domain.constant.SearchType;
 import com.springboot.boardproject.dto.ArticleWithCommentsDto;
 import com.springboot.boardproject.dto.UserAccountDto;
 import com.springboot.boardproject.service.ArticleService;
 import com.springboot.boardproject.service.PaginationService;
+import com.springboot.boardproject.util.FormDataEncoder;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,15 +32,22 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("View 컨트롤러 - 게시글")
-@Import(SecurityConfig.class)
+@Import({SecurityConfig.class, FormDataEncoder.class})
 @WebMvcTest(ArticleController.class)
 class ArticleControllerTest {
     private final MockMvc mvc;
+    private final FormDataEncoder formDataEncoder;
+
     @MockBean private ArticleService articleService;
     @MockBean private PaginationService paginationService;
-    public ArticleControllerTest(@Autowired MockMvc mvc) {
+    public ArticleControllerTest(
+            @Autowired MockMvc mvc,
+            @Autowired FormDataEncoder formDataEncoder
+    ) {
         this.mvc = mvc;
+        this.formDataEncoder = formDataEncoder;
     }
+
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticlesView_thenReturnsArticlesView() throws Exception {
@@ -115,7 +123,7 @@ class ArticleControllerTest {
         // Given
         Long articleId = 1L;
         long totalCount = 1L;
-        given(articleService.getArticle(articleId)).willReturn(createArticleWithCommentsDto());
+        given(articleService.getArticleWithComments(articleId)).willReturn(createArticleWithCommentsDto());
         given(articleService.getArticleCount()).willReturn(totalCount);
         // When & Then
         mvc.perform(get("/articles/" + articleId))
