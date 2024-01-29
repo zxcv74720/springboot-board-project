@@ -70,9 +70,13 @@ clean {
     delete file(generated)
 }
 
-// Heroku 설정
-jar {
-    manifest {
-        attributes('Main-Class': 'com.springboot.boardproject.SpringbootBoardProjectApplication')
+tasks.withType(Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+jar{
+    enabled = false
+    manifest{
+        attributes 'Main-Class':'com.springboot.boardproject.SpringbootBoardProjectApplication'
     }
 }
